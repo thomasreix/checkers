@@ -1,38 +1,46 @@
-WHITE = 0
-BLACK = 1
-EMPTY = 2
+BLANK = -1
+EMPTY = 0
+PLAYER = 1
+APPONANT = 2
+
+local symbols = {
+	[PLAYER] = "●",
+	[APPONANT] = "○",
+	[EMPTY] = "-",
+	[BLANK] = " ",
+}
 
 function defaultBoard(size)
-    local board = {}
-    for y = 1, size do
-        board[y] = {}
-        local cell = y < size / 2 and WHITE or y > size + 2 and WHITE or EMPTY
-        for x = 1, size do
-            if (y + x) % 2 == 0 then
-                board[y][x] = false
-            else
-                board[y][x] = cell
-            end
-        end
-    end
-
-    return board
+	local board = {}
+	local formation = size / 2 - 1
+	for y = 1, size do
+		local cell
+		if y <= formation then
+			cell = PLAYER
+		elseif y > size - formation then
+			cell = APPONANT
+		else
+			cell = EMPTY
+		end
+		local row = {}
+		for x = 1, size do
+			if (y + x) % 2 == 0 then
+				row[x] = BLANK
+			else
+				row[x] = cell
+			end
+		end
+		board[y] = row
+	end
+	return board
 end
 
 function printBoard(board)
-    for y, row in ipairs(board) do
-        local line = ""
-        for x, cell in ipairs(row) do
-            if cell == 0 then
-                line = line.."0 "
-            elseif cell == 1 then
-                line = line.."1 "
-            elseif cell == 2 then
-                line = line.."_ "
-            end
-                line = line.."  "
-            end
-        end
-        print(line)
-    end
+	for y, row in ipairs(board) do
+		local line = ""
+		for x, cell in ipairs(row) do
+			line = line .. symbols[cell] .. " "
+		end
+		print(line)
+	end
 end
