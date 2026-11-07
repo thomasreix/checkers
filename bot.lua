@@ -1,4 +1,4 @@
-local function available(board)
+local function availableMoves(board)
 	local moves = {}
 	for y, row in ipairs(board) do
 		for x, cell in ipairs(row) do
@@ -30,11 +30,13 @@ local function available(board)
 end
 
 local function play(board)
-	local moves = available(board)
+	local moves = availableMoves(board)
 	local move = moves[1]
 	return move
 end
 
 return {
-	play = play,
+	play = function (board)
+		return play(board)
+	end,
 }
