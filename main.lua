@@ -6,12 +6,10 @@ size = 8
 board = defaultBoard(8)
 printBoard(board)
 
-
-repeat
-    move = bot.play(board)
-
+move = bot.play(board)
+while move ~= nil do
     if checkMove(board, move) then
-        updateBoard(board, move)
+        board = updateBoard(board, move)
     else
         print("error: wrong move")
         print(
@@ -22,4 +20,6 @@ repeat
 
     print()
     printBoard(board)
-until move ~= nil
+
+    move = bot.play(board)
+end
