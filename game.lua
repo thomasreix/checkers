@@ -141,6 +141,7 @@ function checkGame(board)
 end
 
 function printBoard(board, index)
+	local printedBoard
 	if index == 1 then
         printedBoard = reverseBoard(invertBoard(board))
     end
@@ -172,12 +173,7 @@ function battle(players, games)
                 finished = true
             else
                 board = updateGame(board, move)
-
-                local displayBoard = board
-                if index == 1 then
-                    displayBoard = reverseBoard(invertBoard(board))
-                end
-                printBoard(displayBoard)
+				printBoard(board)
 
                 board = reverseBoard(invertBoard(board))
                 finished = checkGame(board)
