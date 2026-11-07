@@ -1,28 +1,40 @@
-require("game")
-
-function available(board)
+local function available(board)
 	local moves = {}
 	for y, row in ipairs(board) do
 		for x, cell in ipairs(row) do
-			local move = { { x, y } }
 			if cell == PLAYER then
-				if board[y - 1][x - 1] == EMPTY then
-					move[2] = { y - 1, x - 1 }
-				elseif board[y - 1][x + 1] == EMPTY then
-					move[2] = { y - 1, x + 1 }
+				if x == 1 then
+					if board[y + 1][x + 1] == EMPTY then
+						local move = { { y, x }, { y + 1, x + 1 } }
+						moves[#moves + 1] = move
+					end
+				elseif x == size then
+					if board[y + 1][x - 1] == EMPTY then
+						local move = { { y, x }, { y + 1, x - 1 } }
+						moves[#moves + 1] = move
+					end
+				else
+					if board[y + 1][x + 1] == EMPTY then
+						local move = { { y, x }, { y + 1, x + 1 } }
+						moves[#moves + 1] = move
+					end
+					if board[y + 1][x - 1] == EMPTY then
+						local move = { { y, x }, { y + 1, x - 1 } }
+						moves[#moves + 1] = move
+					end
 				end
-			end
-			if #move == 2 then
-				moves[#moves + 1] = move
 			end
 		end
 	end
 	return moves
 end
 
-function play(board)
+local function play(board)
 	local moves = available(board)
 	local move = moves[1]
-	print(move)
 	return move
 end
+
+return {
+	play = play,
+}

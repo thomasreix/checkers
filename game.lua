@@ -35,8 +35,19 @@ function defaultBoard(size)
 	return board
 end
 
-function printBoard(board)
+function reverseBoard(board)
+	local size = #board
+	local reversedBoard = {}
 	for y, row in ipairs(board) do
+		local index = size - y + 1
+		reversedBoard[index] = row
+	end
+	return reversedBoard
+end
+
+function printBoard(board)
+	local reversedBoard = reverseBoard(board)
+	for y, row in ipairs(reversedBoard) do
 		local line = ""
 		for x, cell in ipairs(row) do
 			line = line .. symbols[cell] .. " "
