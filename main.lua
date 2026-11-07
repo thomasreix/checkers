@@ -20,6 +20,5 @@ while move ~= nil do
 
     print()
     printBoard(board)
-
     move = bot.play(board)
 end

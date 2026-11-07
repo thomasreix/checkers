@@ -45,6 +45,19 @@ function reverseBoard(board)
 	return reversedBoard
 end
 
+function invertBoard(board)
+	local invertedBoard = {}
+	for y, row in ipairs(board) do
+		local invertedRow = {}
+		for x, cell in ipairs(row) do
+			local invertedCell = cell == PLAYER and APPONANT or PLAYER
+			invertedRow[x] = invertedCell
+		end
+		invertedBoard[y] = invertedRow
+	end
+	return invertedBoard
+end
+
 function checkMove(board, move)
 	size = #board
 	if move.start.y > size or move.start.y < 1 then
