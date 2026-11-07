@@ -1,6 +1,6 @@
-require "game"
+require("game")
 
-bot = require "bot"
+bot = require("bot")
 
 size = 8
 board = defaultBoard(8)

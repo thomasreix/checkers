@@ -36,7 +36,7 @@ local function play(board)
 end
 
 return {
-	play = function (board)
+	play = function(board)
 		return play(board)
 	end,
 }
