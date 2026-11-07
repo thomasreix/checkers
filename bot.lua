@@ -14,12 +14,12 @@ local function availableMoves(board)
 						moves[#moves + 1] = move
 					end
 				else
-					if board[y + 1][x + 1] == EMPTY then
-						local move = { { y, x }, { y + 1, x + 1 } }
-						moves[#moves + 1] = move
-					end
 					if board[y + 1][x - 1] == EMPTY then
 						local move = { { y, x }, { y + 1, x - 1 } }
+						moves[#moves + 1] = move
+					end
+					if board[y + 1][x + 1] == EMPTY then
+						local move = { { y, x }, { y + 1, x + 1 } }
 						moves[#moves + 1] = move
 					end
 				end
