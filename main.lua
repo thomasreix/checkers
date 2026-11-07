@@ -7,4 +7,16 @@ board = defaultBoard(8)
 printBoard(board)
 
 move = bot.play(board)
-print(table.concat(move[1], " "), table.concat(move[2], " "))
+
+if checkMove(board, move) then
+	updateBoard(board, move)
+else
+	print("error: wrong move")
+	print(
+		tostring(move.start.y) .. " " .. tostring(move.start.x),
+		tostring(move.finish.y) .. " " .. tostring(move.finish.x)
+	)
+end
+
+print()
+printBoard(board)

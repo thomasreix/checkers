@@ -45,6 +45,38 @@ function reverseBoard(board)
 	return reversedBoard
 end
 
+function checkMove(board, move)
+	size = #board
+	if move.start.y > size or move.start.y < 1 then
+		return false
+	elseif move.start.x > size or move.start.x < 1 then
+		return false
+	elseif move.finish.x > size or move.finish.x < 1 then
+		return false
+	end
+
+	if (move.start.y + move.start.y) % 2 ~= 0 then
+		return false
+	end
+
+	if board[move.start.y][move.start.x] ~= PLAYER then
+		return false
+	elseif move.finish.y - move.start.y ~= 1 then
+		return false
+	elseif move.start.x - 1 ~= move.finish.x and move.start.x + 1 ~= move.finish.x then
+		return false
+	end
+
+	return true
+end
+
+function updateBoard(board, move)
+	local updatedBoard = board
+	updatedBoard[move.start.y][move.start.x] = EMPTY
+	updatedBoard[move.finish.y][move.finish.x] = PLAYER
+	return updatedBoard
+end
+
 function printBoard(board)
 	local reversedBoard = reverseBoard(board)
 	for y, row in ipairs(reversedBoard) do

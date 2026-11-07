@@ -5,21 +5,21 @@ local function availableMoves(board)
 			if cell == PLAYER then
 				if x == 1 then
 					if board[y + 1][x + 1] == EMPTY then
-						local move = { { y, x }, { y + 1, x + 1 } }
+						local move = { start = { y = y, x = x }, finish = { y = y + 1, x = x + 1 } }
 						moves[#moves + 1] = move
 					end
 				elseif x == size then
 					if board[y + 1][x - 1] == EMPTY then
-						local move = { { y, x }, { y + 1, x - 1 } }
+						local move = { start = { y = y, x = x }, finish = { y = y + 1, x = x - 1 } }
 						moves[#moves + 1] = move
 					end
 				else
 					if board[y + 1][x - 1] == EMPTY then
-						local move = { { y, x }, { y + 1, x - 1 } }
+						local move = { start = { y = y, x = x }, finish = { y = y + 1, x = x - 1 } }
 						moves[#moves + 1] = move
 					end
 					if board[y + 1][x + 1] == EMPTY then
-						local move = { { y, x }, { y + 1, x + 1 } }
+						local move = { start = { y = y, x = x }, finish = { y = y + 1, x = x + 1 } }
 						moves[#moves + 1] = move
 					end
 				end
