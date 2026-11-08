@@ -137,7 +137,7 @@ function checkGame(board)
 		finished = true
 	end
 
-	return finished
+	return finished, win
 end
 
 function copyBoard(board)
@@ -192,7 +192,7 @@ function printBoards(boards, columns)
 	end
 end
 
-function printGames(games, players)
+function printGames(games, players, columns)
 	for gameCount, game in ipairs(games) do
 		local board = defaultBoard(8)
 		local starter = gameCount % 2 + 1
@@ -200,22 +200,24 @@ function printGames(games, players)
 			board = reverseBoard(invertBoard(board))
 		end
 		local printedBoards = {}
-		printedBoards[1] = copyBoard(invertBoard(board))
+		printedBoards[1] = copyBoard(reverseBoard(board))
+		local playerIndex
 		for turn, move in ipairs(game) do
-			local index = (turn + starter) % 2 + 1
+			playerIndex = (turn + starter) % 2
 			board = updateGame(board, move)
 			board = reverseBoard(invertBoard(board))
 
 			local printedBoard = board
-			if index == 1 then
+			if playerIndex == 1 then
 				printedBoard = reverseBoard(invertBoard(board))
 			end
 			printedBoard = reverseBoard(printedBoard)
 			printedBoards[turn + 1] = copyBoard(printedBoard)
 
 		end
-		printBoards(printedBoards, 4)
-		print(players[1].name .. " has won the game")
+		printBoards(printedBoards, columns)
+		local winner = players[playerIndex]
+		print(winner.name .. "(" .. symbols[playerIndex] .. ") has won the game")
 	end
 end
 

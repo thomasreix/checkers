@@ -8,4 +8,4 @@ board = defaultBoard(8)
 players = { bot, bot }
 totalGames = 1
 games = battle(players, totalGames)
-printGames(games, players)
+printGames(games, players, 6)
