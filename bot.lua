@@ -36,6 +36,7 @@ local function play(board)
 end
 
 return {
+	name = "bot",
 	play = function(board)
 		return play(board)
 	end,
