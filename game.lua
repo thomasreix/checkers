@@ -183,13 +183,13 @@ function printGames(games, players)
 	for gameCount, game in ipairs(games) do
 		local board = defaultBoard(8)
 		local starter = gameCount % 2
-		if starter == 2 then
+		if starter == 1 then
 			board = reverseBoard(invertBoard(board))
 		end
 		local boards = {}
 		for turn, move in ipairs(game) do
 			local index = (turn + starter) % 2 + 1
-			
+
 			board = updateGame(board, move)
 
 			local printedBoard = board
