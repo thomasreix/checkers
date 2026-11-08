@@ -141,17 +141,16 @@ function checkGame(board)
 end
 
 function copyBoard(board)
-    local copiedBoard = {}
-    for y, row in ipairs(board) do
-        local copiedRow = {}
-        for x, cell in ipairs(row) do
-            copiedRow[x] = cell
-        end
+	local copiedBoard = {}
+	for y, row in ipairs(board) do
+		local copiedRow = {}
+		for x, cell in ipairs(row) do
+			copiedRow[x] = cell
+		end
 		copiedBoard[y] = copiedRow
-    end
-    return copiedBoard
+	end
+	return copiedBoard
 end
-
 
 function printBoard(board, index)
 	local printedBoard = board
@@ -213,7 +212,6 @@ function printGames(games, players, columns)
 			end
 			printedBoard = reverseBoard(printedBoard)
 			printedBoards[turn + 1] = copyBoard(printedBoard)
-
 		end
 		printBoards(printedBoards, columns)
 		local winner = players[playerIndex]
