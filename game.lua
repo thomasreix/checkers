@@ -141,20 +141,20 @@ function checkGame(board)
 end
 
 function printBoard(board, index)
-    local printedBoard = board
-    if index == 1 then
-        printedBoard = reverseBoard(invertBoard(board))
-    end
+	local printedBoard = board
+	if index == 1 then
+		printedBoard = reverseBoard(invertBoard(board))
+	end
 	printedBoard = reverseBoard(printedBoard)
 
-    print()
-    for y, row in ipairs(printedBoard) do
-        local printedRow = ""
-        for x, cell in ipairs(row) do
-            printedRow = printedRow .. symbols[cell] .. " "
-        end
-        print(printedRow)
-    end
+	print()
+	for y, row in ipairs(printedBoard) do
+		local printedRow = ""
+		for x, cell in ipairs(row) do
+			printedRow = printedRow .. symbols[cell] .. " "
+		end
+		print(printedRow)
+	end
 end
 
 function printBoards(boards, columns)
@@ -164,8 +164,12 @@ function printBoards(boards, columns)
 		for row = 1, size do
 			local printedRow = ""
 			for column = 1, columns do
-				for x, cell in ipairs(boards[column][1]) do
-					printedRow = printedRow .. symbols[cell] .. " "
+				local boardIndex = (boardRow - 1) * columns + column
+				local board = boards[boardIndex]
+				if board then
+					for x, cell in ipairs(board[row]) do
+						printedRow = printedRow .. symbols[cell] .. " "
+					end
 				end
 				printedRow = printedRow .. "   "
 			end
@@ -178,13 +182,14 @@ end
 function printGames(games, players)
 	for gameCount, game in ipairs(games) do
 		local board = defaultBoard(8)
-		local starter = gameCount % 2 + 1
-		local boards = {board}
-		if starter == 1 then
+		local starter = gameCount % 2
+		if starter == 2 then
 			board = reverseBoard(invertBoard(board))
 		end
+		local boards = {}
 		for turn, move in ipairs(game) do
-			local index = (turn + starter - 1) % 2 + 1
+			local index = (turn + starter) % 2 + 1
+			
 			board = updateGame(board, move)
 
 			local printedBoard = board
@@ -192,7 +197,7 @@ function printGames(games, players)
 				printedBoard = reverseBoard(invertBoard(board))
 			end
 			printedBoard = reverseBoard(printedBoard)
-			boards[turn + 1] = printedBoard
+			boards[turn] = printedBoard
 
 			board = reverseBoard(invertBoard(board))
 		end
@@ -201,13 +206,12 @@ function printGames(games, players)
 	end
 end
 
-
 function battle(players, totalGames)
 	local games = {}
 	for gameCount = 1, totalGames do
 		local board = defaultBoard(8)
 		local starter = gameCount % 2 + 1
-		printBoard(board, starter - 1)
+		--printBoard(board, starter - 1)
 		if starter == 1 then
 			board = reverseBoard(invertBoard(board))
 		end
@@ -215,7 +219,7 @@ function battle(players, totalGames)
 		local turn = 0
 		local finished = false
 		while not finished do
-			local index = (turn + starter) % 2 + 1
+			local index = (turn + starter - 1) % 2 + 1
 			local player = players[index]
 
 			local move = player.play(board)
@@ -225,8 +229,7 @@ function battle(players, totalGames)
 				finished = true
 			else
 				board = updateGame(board, move)
-				printBoard(board, index)
-
+				--printBoard(board, index)
 				board = reverseBoard(invertBoard(board))
 				finished = checkGame(board)
 				turn = turn + 1
@@ -237,4 +240,3 @@ function battle(players, totalGames)
 	end
 	return games
 end
-
